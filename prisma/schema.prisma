@@ -12,7 +12,7 @@ model Event {
   title               String
   details             String?
   slug                String  @unique
-  maximumParticipants Int?    @map("maximum_attendees")
+  maximumParticipants Int?    @map("maximum_participants")
 
   participants Participant[]
 
@@ -30,15 +30,15 @@ model Participant {
   checkIn CheckIn?
 
   @@unique([eventId, email])
-  @@map("participants")
+  @@map("participant")
 }
 
 model CheckIn {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
 
-  attendee      Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
-  participantId Int         @unique @map("attendee_id")
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+  participantId Int         @unique @map("participant_id")
 
   @@map("check_ins")
 }

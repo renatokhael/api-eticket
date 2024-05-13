@@ -9,7 +9,7 @@ export async function registerForEvent(app: FastifyInstance) {
     "/events/:eventId/participants",
     {
       schema: {
-        summary: "Register an attendee",
+        summary: "Register an participant",
         tags: ["participants"],
         body: z.object({
           name: z.string().min(4),
@@ -29,7 +29,7 @@ export async function registerForEvent(app: FastifyInstance) {
       const { eventId } = request.params;
       const { name, email } = request.body;
 
-      const attendeeFromEmail = await prisma.attendee.findUnique({
+      const attendeeFromEmail = await prisma.participant.findUnique({
         where: {
           eventId_email: {
             email,
@@ -51,7 +51,7 @@ export async function registerForEvent(app: FastifyInstance) {
           },
         }),
 
-        prisma.attendee.count({
+        prisma.participant.count({
           where: {
             eventId,
           },
@@ -67,7 +67,7 @@ export async function registerForEvent(app: FastifyInstance) {
         );
       }
 
-      const attendee = await prisma.attendee.create({
+      const participant = await prisma.participant.create({
         data: {
           name,
           email,
@@ -75,7 +75,7 @@ export async function registerForEvent(app: FastifyInstance) {
         },
       });
 
-      return reply.status(201).send({ participantId: attendee.id });
+      return reply.status(201).send({ participantId: participant.id });
     }
   );
 }

@@ -45,7 +45,7 @@ async function seed() {
 
   await Promise.all(
     attendeesToInsert.map((data) => {
-      return prisma.attendee.create({
+      return prisma.participant.create({
         data,
       });
     })

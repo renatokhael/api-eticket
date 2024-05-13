@@ -4,32 +4,32 @@ CREATE TABLE "events" (
     "title" TEXT NOT NULL,
     "details" TEXT,
     "slug" TEXT NOT NULL,
-    "maximum_attendees" INTEGER
+    "maximum_participants" INTEGER
 );
 
 -- CreateTable
-CREATE TABLE "participants" (
+CREATE TABLE "participant" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "event_id" TEXT NOT NULL,
-    CONSTRAINT "participants_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "events" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "participant_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "events" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "check_ins" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "attendee_id" INTEGER NOT NULL,
-    CONSTRAINT "check_ins_attendee_id_fkey" FOREIGN KEY ("attendee_id") REFERENCES "participants" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "participant_id" INTEGER NOT NULL,
+    CONSTRAINT "check_ins_participant_id_fkey" FOREIGN KEY ("participant_id") REFERENCES "participant" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "events_slug_key" ON "events"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "participants_event_id_email_key" ON "participants"("event_id", "email");
+CREATE UNIQUE INDEX "participant_event_id_email_key" ON "participant"("event_id", "email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "check_ins_attendee_id_key" ON "check_ins"("attendee_id");
+CREATE UNIQUE INDEX "check_ins_participant_id_key" ON "check_ins"("participant_id");

@@ -9,7 +9,7 @@ export async function getAttendeeBadge(app: FastifyInstance) {
     "/participants/:participantId/badge",
     {
       schema: {
-        summary: "Get an attendee badge",
+        summary: "Get an participant badge",
         tags: ["participants"],
         params: z.object({
           participantId: z.coerce.number().int(),
@@ -29,7 +29,7 @@ export async function getAttendeeBadge(app: FastifyInstance) {
     async (request, reply) => {
       const { participantId } = request.params;
 
-      const attendee = await prisma.attendee.findUnique({
+      const participant = await prisma.participant.findUnique({
         select: {
           name: true,
           email: true,
@@ -44,7 +44,7 @@ export async function getAttendeeBadge(app: FastifyInstance) {
         },
       });
 
-      if (attendee === null) {
+      if (participant === null) {
         throw new BadRequest("Attendee not found.");
       }
 
@@ -57,9 +57,9 @@ export async function getAttendeeBadge(app: FastifyInstance) {
 
       return reply.send({
         badge: {
-          name: attendee.name,
-          email: attendee.email,
-          eventTitle: attendee.event.title,
+          name: participant.name,
+          email: participant.email,
+          eventTitle: participant.event.title,
           checkInURL: checkInURL.toString(),
         },
       });

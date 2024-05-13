@@ -38,7 +38,7 @@ export async function getEventParticipants(app: FastifyInstance) {
       const { pageIndex, query } = request.query;
 
       const [participants, total] = await Promise.all([
-        prisma.attendee.findMany({
+        prisma.participant.findMany({
           select: {
             id: true,
             name: true,
@@ -66,7 +66,7 @@ export async function getEventParticipants(app: FastifyInstance) {
             createdAt: "desc",
           },
         }),
-        prisma.attendee.count({
+        prisma.participant.count({
           where: query
             ? {
                 eventId,
@@ -81,13 +81,13 @@ export async function getEventParticipants(app: FastifyInstance) {
       ]);
 
       return reply.send({
-        participants: participants.map((attendee) => {
+        participants: participants.map((participant) => {
           return {
-            id: attendee.id,
-            name: attendee.name,
-            email: attendee.email,
-            createdAt: attendee.createdAt,
-            checkedInAt: attendee.checkIn?.createdAt ?? null,
+            id: participant.id,
+            name: participant.name,
+            email: participant.email,
+            createdAt: participant.createdAt,
+            checkedInAt: participant.checkIn?.createdAt ?? null,
           };
         }),
         total,

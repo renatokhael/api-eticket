@@ -5,7 +5,7 @@ import { prisma } from "../lib/prisma";
 
 export async function deleteParticipant(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().delete(
-    "/participants/:id",
+    "/participants/:participantId",
     {
       schema: {
         summary: "Delete a participant",
@@ -31,7 +31,7 @@ export async function deleteParticipant(app: FastifyInstance) {
         // Check if the participant exists
         const existingParticipant = await prisma.participant.findUnique({
           where: {
-            id,
+            participantId,
           },
         });
 
@@ -43,7 +43,7 @@ export async function deleteParticipant(app: FastifyInstance) {
         // Delete the participant
         await prisma.participant.delete({
           where: {
-            id,
+            participantId,
           },
         });
 

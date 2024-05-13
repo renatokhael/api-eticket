@@ -5,51 +5,73 @@
 
 # E-Ticket API RESTful
 
-O E-Ticket é uma aplicação de **gestão de participantes em eventos presenciais**. 
 
-A ferramenta permite que o organizador cadastre um evento e abra uma página pública de inscrição.
+Essa é uma API RESTful para **gestão de participantes** em eventos presenciais. Ela possui recursos bem definidos para lidar com operações como criação, leitura, atualização e exclusão (CRUD) de participantes, além de funcionalidades adicionais para lidar com a gestão dos eventos em si. 
 
-Os participantes inscritos podem emitir uma credencial para check-in no dia do evento.
+## Recursos
 
-O sistema fará um scan da credencial do participante para permitir a entrada no evento.
+### Eventos
 
-## Desenvolvimento 
+- **GET /events:** Retorna a lista de todos os eventos.
+- **GET /events/{id}:** Retorna detalhes de um evento específico.
+- **POST /events:** Cria um novo evento.
+- **PUT /events/{id}:** Atualiza os detalhes de um evento existente.
+- **DELETE /events/{id}:** Exclui um evento.
 
-Adicionei o conventionalcommits para 
+### Participants
+
+- **GET /eventos/{evento_id}/participantes:** Retorna a lista de participantes para um evento específico.
+- **GET /participantes/{id}:** Retorna detalhes de um participante específico.
+- **POST /eventos/{evento_id}/participantes:** Adiciona um novo participante a um evento.
+- **PUT /participantes/{id}:** Atualiza os detalhes de um participante existente.
+- **DELETE /participantes/{id}:** Remove um participante.
+
+## Estrutura de Dados
+
+### Evento
+
+```json
+{
+    "id": "string",
+    "name": "string",
+    "description": "string",
+    "data": "string (formato ISO)",
+    "location": "string"
+}
+```
+
+### Participante
+
+```json
+{
+    "id": "string",
+    "name": "string",
+    "email": "string",
+    "phone": "string",
+    "evento_id": "string (referência ao evento)"
+}
+```
+## Bibliotecas e Ferramentas:
+
+- [Fastify](https://fastify.dev/): Para roteamento e manipulação de solicitações HTTP.
+- [Prisma](https://www.prisma.io/) ORM para modelagem e interação com o banco de dados MongoDB (ou MySQL, PostgreSQL etc.).
+- [Body-parser](https://www.npmjs.com/package/body-parser): Para análise de corpo de solicitação JSON.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): Para autenticação e autorização (se necessário).
+- [bcrypt](https://www.npmjs.com/package/bcrypt): Para criptografar senhas (se houver autenticação de usuário).
+- [Zod](https://zod.dev/): Para validação de entrada de dados.
+- [Helmet](https://helmetjs.github.io/): Para proteção contra várias vulnerabilidades da web.
+- - [Swagger](https://github.com/fastify/fastify-swagger-ui): Para documentar as rotas
+
+### Fluxo de trabalho:
+
+1. Receber solicitações HTTP através do Fastify.
+2. Roteamento para manipuladores de solicitação apropriados.
+3. Validar e processar dados usando Zod e outras ferramentas conforme necessário.
+4. Interagir com o banco de dados usando Prisma/SQLite.
+5. Retornar respostas adequadas.
+6. Documentação usando Swagger
 
 
-## Requisitos
-
-### Requisitos funcionais
-
-- [x] O organizador deve poder cadastrar um novo evento;
-- [x] O organizador deve poder visualizar dados de um evento;
-- [x] O organizador deve poser visualizar a lista de participantes; 
-- [x] O participante deve poder se inscrever em um evento;
-- [x] O participante deve poder visualizar seu crachá de inscrição;
-- [x] O participante deve poder realizar check-in no evento;
-
-### Regras de negócio
-
-- [x] O participante só pode se inscrever em um evento uma única vez;
-- [x] O participante só pode se inscrever em eventos com vagas disponíveis;
-- [x] O participante só pode realizar check-in em um evento uma única vez;
-
-### Requisitos não-funcionais
-
-- [x] O check-in no evento será realizado através de um QRCode;
-
-## Documentação da API (Swagger)
-
-Para documentação da API, acesse o link: https://nlw-unite-nodejs.onrender.com/docs
-
-## Banco de dados
-
-Nessa aplicação vamos utilizar banco de dados relacional (SQL). Para ambiente de desenvolvimento seguiremos com o SQLite pela facilidade do ambiente.
-
-### Diagrama ERD
-
-<img src=".github/erd.svg" width="600" alt="Diagrama ERD do banco de dados" />
 
 ### Estrutura do banco (SQL)
 
@@ -90,3 +112,8 @@ CREATE UNIQUE INDEX "attendees_event_id_email_key" ON "participants"("event_id",
 -- CreateIndex
 CREATE UNIQUE INDEX "check_ins_attendeeId_key" ON "check_ins"("participantId");
 ```
+
+
+Desenvolvido com 💓por **Renato Khael**
+
+Acesse: [renatokhael.dev](https://renatokhael.dev)
