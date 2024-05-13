@@ -1,12 +1,22 @@
-# NLW Unite [2023]
 
-O pass.in é uma aplicação de **gestão de participantes em eventos presenciais**. 
+
+
+
+
+# E-Ticket API RESTful
+
+O E-Ticket é uma aplicação de **gestão de participantes em eventos presenciais**. 
 
 A ferramenta permite que o organizador cadastre um evento e abra uma página pública de inscrição.
 
 Os participantes inscritos podem emitir uma credencial para check-in no dia do evento.
 
 O sistema fará um scan da credencial do participante para permitir a entrada no evento.
+
+## Desenvolvimento 
+
+Adicionei o conventionalcommits para 
+
 
 ## Requisitos
 
@@ -54,7 +64,7 @@ CREATE TABLE "events" (
 );
 
 -- CreateTable
-CREATE TABLE "attendees" (
+CREATE TABLE "participants" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -67,16 +77,16 @@ CREATE TABLE "attendees" (
 CREATE TABLE "check_ins" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "attendeeId" INTEGER NOT NULL,
-    CONSTRAINT "check_ins_attendeeId_fkey" FOREIGN KEY ("attendeeId") REFERENCES "attendees" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "participantId" INTEGER NOT NULL,
+    CONSTRAINT "check_ins_attendeeId_fkey" FOREIGN KEY ("participantId") REFERENCES "participants" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "events_slug_key" ON "events"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "attendees_event_id_email_key" ON "attendees"("event_id", "email");
+CREATE UNIQUE INDEX "attendees_event_id_email_key" ON "participants"("event_id", "email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "check_ins_attendeeId_key" ON "check_ins"("attendeeId");
+CREATE UNIQUE INDEX "check_ins_attendeeId_key" ON "check_ins"("participantId");
 ```

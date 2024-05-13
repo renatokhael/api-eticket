@@ -1,6 +1,18 @@
 {
   "name": "e-ticket",
   "description": "O E-Ticket é uma aplicação de **gestão de participantes em eventos presenciais",
+  "author": {
+    "name": "Renato Khael",
+    "email": "renatokhael@gmail.com",
+    "url": "https://renatokhael@gmail.com"
+  },
+  "scripts": {
+    "start": "node dist/server.mjs",
+    "build": "tsup src --format esm",
+    "dev": "tsx watch --env-file .env src/app.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -17,6 +29,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@types/node": "^20.12.11",
+    "git-commit-msg-linter": "^5.0.7",
     "prisma": "^5.13.0",
     "tsup": "^8.0.2",
     "tsx": "^4.10.2",
