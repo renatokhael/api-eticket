@@ -32,7 +32,7 @@ This is a RESTful API for **participant management** in in-person events. It has
     "date": "string (ISO format)",
     "location": "string"
 }
-
+```
 ### Participants
 
 ```json
@@ -53,7 +53,7 @@ This is a RESTful API for **participant management** in in-person events. It has
 - [bcrypt](https://www.npmjs.com/package/bcrypt): For encrypting passwords (if user authentication is needed).
 - [Zod](https://zod.dev/): For data validation.
 - [Helmet](https://helmetjs.github.io/): For protection against various web vulnerabilities.
-- - [Swagger](https://github.com/fastify/fastify-swagger-ui): To document the routes.
+- [Swagger](https://github.com/fastify/fastify-swagger-ui): To document the routes.
 
 ### Fluxo de trabalho:
 
