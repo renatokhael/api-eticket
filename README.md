@@ -1,46 +1,39 @@
+# E-Ticket RESTful API
 
+This is a RESTful API for **participant management** in in-person events. It has well-defined resources to handle operations such as creating, reading, updating, and deleting (CRUD) participants, as well as additional functionalities for managing the events themselves.
 
+## Resources
 
+### Events
 
-
-# E-Ticket API RESTful
-
-
-Essa é uma API RESTful para **gestão de participantes** em eventos presenciais. Ela possui recursos bem definidos para lidar com operações como criação, leitura, atualização e exclusão (CRUD) de participantes, além de funcionalidades adicionais para lidar com a gestão dos eventos em si. 
-
-## Recursos
-
-### Eventos
-
-- **GET /events:** Retorna a lista de todos os eventos.
-- **GET /events/{id}:** Retorna detalhes de um evento específico.
-- **POST /events:** Cria um novo evento.
-- **PUT /events/{id}:** Atualiza os detalhes de um evento existente.
-- **DELETE /events/{id}:** Exclui um evento.
+- **GET /events:** Returns the list of all events.
+- **GET /events/{id}:** Returns details of a specific event.
+- **POST /events:** Creates a new event.
+- **PUT /events/{id}:** Updates the details of an existing event.
+- **DELETE /events/{id}:** Deletes an event.
 
 ### Participants
 
-- **GET /eventos/{evento_id}/participantes:** Retorna a lista de participantes para um evento específico.
-- **GET /participantes/{id}:** Retorna detalhes de um participante específico.
-- **POST /eventos/{evento_id}/participantes:** Adiciona um novo participante a um evento.
-- **PUT /participantes/{id}:** Atualiza os detalhes de um participante existente.
-- **DELETE /participantes/{id}:** Remove um participante.
+- **GET /events/{event_id}/participants:** Returns the list of participants for a specific event.
+- **GET /participants/{id}:** Returns details of a specific participant.
+- **POST /events/{event_id}/participants:** Adds a new participant to an event.
+- **PUT /participants/{id}:** Updates the details of an existing participant.
+- **DELETE /participants/{id}:** Removes a participant.
 
-## Estrutura de Dados
+## Data Structure
 
-### Evento
+### Event
 
 ```json
 {
     "id": "string",
     "name": "string",
     "description": "string",
-    "data": "string (formato ISO)",
+    "date": "string (ISO format)",
     "location": "string"
 }
-```
 
-### Participante
+### Participants
 
 ```json
 {
@@ -48,32 +41,32 @@ Essa é uma API RESTful para **gestão de participantes** em eventos presenciais
     "name": "string",
     "email": "string",
     "phone": "string",
-    "evento_id": "string (referência ao evento)"
+    "event_id": "string (reference to the event)"
 }
 ```
 ## Bibliotecas e Ferramentas:
 
-- [Fastify](https://fastify.dev/): Para roteamento e manipulação de solicitações HTTP.
-- [Prisma](https://www.prisma.io/) ORM para modelagem e interação com o banco de dados MongoDB (ou MySQL, PostgreSQL etc.).
-- [Body-parser](https://www.npmjs.com/package/body-parser): Para análise de corpo de solicitação JSON.
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): Para autenticação e autorização (se necessário).
-- [bcrypt](https://www.npmjs.com/package/bcrypt): Para criptografar senhas (se houver autenticação de usuário).
-- [Zod](https://zod.dev/): Para validação de entrada de dados.
-- [Helmet](https://helmetjs.github.io/): Para proteção contra várias vulnerabilidades da web.
-- - [Swagger](https://github.com/fastify/fastify-swagger-ui): Para documentar as rotas
+- [Fastify](https://fastify.dev/): For routing and handling HTTP requests.
+- [Prisma](https://www.prisma.io/) ORM for modeling and interacting with the database (MongoDB, MySQL, PostgreSQL, etc.).
+- [Body-parser](https://www.npmjs.com/package/body-parser): For parsing JSON request bodies.
+- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): For authentication and authorization (if needed).
+- [bcrypt](https://www.npmjs.com/package/bcrypt): For encrypting passwords (if user authentication is needed).
+- [Zod](https://zod.dev/): For data validation.
+- [Helmet](https://helmetjs.github.io/): For protection against various web vulnerabilities.
+- - [Swagger](https://github.com/fastify/fastify-swagger-ui): To document the routes.
 
 ### Fluxo de trabalho:
 
-1. Receber solicitações HTTP através do Fastify.
-2. Roteamento para manipuladores de solicitação apropriados.
-3. Validar e processar dados usando Zod e outras ferramentas conforme necessário.
-4. Interagir com o banco de dados usando Prisma/SQLite.
-5. Retornar respostas adequadas.
-6. Documentação usando Swagger
+1. Receive HTTP requests through Fastify.
+2. Route to appropriate request handlers.
+3. Validate and process data using Zod and other tools as needed.
+4. Interact with the database using Prisma/SQLite.
+5. Return appropriate responses.
+6. Documentation using Swagger.
 
 
 
-### Estrutura do banco (SQL)
+### Database Schema (SQL)
 
 ```sql
 -- CreateTable
@@ -114,6 +107,6 @@ CREATE UNIQUE INDEX "check_ins_attendeeId_key" ON "check_ins"("participantId");
 ```
 
 
-Desenvolvido com 💓por **Renato Khael**
+Developed with 💓 by Renato Khael
 
-Acesse: [renatokhael.dev](https://renatokhael.dev)
+Visit: [renatokhael.dev](https://renatokhael.dev)
